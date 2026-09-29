@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:widget_intro/home_screen.dart';
-import 'package:widget_intro/login_screen.dart';
-import 'package:widget_intro/settings_screen.dart';
-import 'package:widget_intro/widgets_screen.dart';
+import 'package:widget_intro/ui/home_screen.dart';
+import 'package:widget_intro/ui/login_screen.dart';
+import 'package:widget_intro/ui/settings_screen.dart';
+import 'package:widget_intro/ui/users_screen.dart';
+import 'package:widget_intro/ui/widgets_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const MyHomePage(title: 'Widgets'),
+      // home: const MyHomePage(title: 'Widgets'),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyHomePage(title: 'Widgets'),
+        '/users': (context) => UsersScreen(),
+      },
     );
   }
 }
