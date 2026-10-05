@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:state_management/model/user.dart';
-import 'package:state_management/providers/user_provider.dart';
+import 'package:state_management/providers/user_notifier.dart';
 
 
 //--------------STATELESS --------------
@@ -16,8 +16,17 @@ class UsersScreen extends ConsumerWidget {
       appBar: AppBar(title: Text('Users list')),
       body: Column(
         children: [
-          ElevatedButton(onPressed: null, child: Text('Fetch users')),
+          ElevatedButton(onPressed: () {
+            // read (lay notifier)
+            ref.read(userProvider.notifier).fetchUsers();
+          }, child: Text('Fetch users')),
+          ElevatedButton(onPressed: () {
+            // read (lay notifier)
+            ref.read(userProvider.notifier).clear();
+          }, child: Text('Clear')),
+          Text('Total users: ${ref.watch(totalUsersProvider)}'),
           Expanded(
+            // ListView
             child: GridView.count(
               crossAxisCount: 3,
               children: users.map((u) {
