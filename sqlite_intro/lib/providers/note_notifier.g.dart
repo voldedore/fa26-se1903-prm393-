@@ -13,7 +13,7 @@ part of 'note_notifier.dart';
 final noteProvider = NoteNotifierProvider._();
 
 final class NoteNotifierProvider
-    extends $NotifierProvider<NoteNotifier, List<Note>> {
+    extends $AsyncNotifierProvider<NoteNotifier, List<Note>> {
   NoteNotifierProvider._()
     : super(
         from: null,
@@ -31,29 +31,21 @@ final class NoteNotifierProvider
   @$internal
   @override
   NoteNotifier create() => NoteNotifier();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<Note> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<List<Note>>(value),
-    );
-  }
 }
 
-String _$noteNotifierHash() => r'4f323e77c7e074198428f6f64855103020ff651d';
+String _$noteNotifierHash() => r'6ef1a4ff92aeb20bbf0e1fa24a043dd1a37521cc';
 
-abstract class _$NoteNotifier extends $Notifier<List<Note>> {
-  List<Note> build();
+abstract class _$NoteNotifier extends $AsyncNotifier<List<Note>> {
+  FutureOr<List<Note>> build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<List<Note>, List<Note>>;
+    final ref = this.ref as $Ref<AsyncValue<List<Note>>, List<Note>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<List<Note>, List<Note>>,
-              List<Note>,
+              AnyNotifier<AsyncValue<List<Note>>, List<Note>>,
+              AsyncValue<List<Note>>,
               Object?,
               Object?
             >;

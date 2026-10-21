@@ -1,9 +1,9 @@
 class Note {
-  final int id;
+  final int? id;
   final String title;
   final String content;
 
-  Note(this.id, this.title, this.content);
+  Note({this.id, required this.title, required this.content});
 
   // toJson
   Map<String, dynamic> toJson() {
@@ -16,7 +16,7 @@ class Note {
 
   // fromJson
   factory Note.fromJson(Map<String, dynamic> json) {
-    return Note(json['id'], json['title'], json['content']);
+    return Note(id: json['id'], title: json['title'], content: json['content']);
   }
 
 

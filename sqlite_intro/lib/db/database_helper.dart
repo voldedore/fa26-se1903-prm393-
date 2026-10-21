@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 import '../model/note.dart';
 
@@ -24,6 +26,12 @@ class DatabaseHelper {
   */
 
   Future<Database> _initDatabase() async {
+    // Danh cho web
+    if (kIsWeb) {
+      databaseFactory = databaseFactoryFfiWeb; // Chuyen qua factory khac khi dung web
+      return openDatabase(_databaseName, version: 1, onCreate: _onCreate);
+    }
+    // Danh cho app
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, _databaseName);
     return openDatabase(path, version: 1, onCreate: _onCreate);
@@ -51,6 +59,11 @@ class DatabaseHelper {
   }
 
   // Create
+  Future<int> insert(Note note) async {
+    final db = await database;
+    return db.insert(_noteTableName, note.toJson());
+  }
+
 
   // Update
 
