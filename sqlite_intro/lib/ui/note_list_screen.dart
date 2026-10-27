@@ -37,7 +37,18 @@ class _NoteListScreenState extends ConsumerState<NoteListScreen> {
                       final note = notes[index];
                       return Card(
                         child: Column(
-                          children: [Text(note.title), Text(note.content)],
+                          children: [
+                            Text(note.title),
+                            Text(note.content),
+                            IconButton(
+                              onPressed: () {
+                                // dialog
+                                // notifier
+                                ref.read(noteProvider.notifier).delete(note.id!);
+                              },
+                              icon: Icon(Icons.delete),
+                            ),
+                          ],
                         ),
                       );
                     },
@@ -48,9 +59,9 @@ class _NoteListScreenState extends ConsumerState<NoteListScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // route qua screen NoteAddScreen
-          ref.read(noteProvider.notifier).addNote(
-              Note(title: 'Note title', content: 'Content')
-          );
+          ref
+              .read(noteProvider.notifier)
+              .addNote(Note(title: 'Note title', content: 'Content'));
         },
         child: Icon(Icons.add),
       ),

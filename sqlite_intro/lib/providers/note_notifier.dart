@@ -16,12 +16,16 @@ class NoteNotifier extends _$NoteNotifier {
   Future<void> addNote(Note note) async {
     await DatabaseHelper.instance.insert(note);
     ref.invalidateSelf(); // state invalidate va chay laij build()
-    await future;
+    await future; // chờ tất cả code async chạy xong
   }
 
   // Update
   // Future<void> update(Note newNote) async {}
 
   // Delete
-  // Future<void> delete(int id) async {}
+  Future<void> delete(int id) async {
+    await DatabaseHelper.instance.delete(id);
+    ref.invalidateSelf();
+    await future;
+  }
 }
